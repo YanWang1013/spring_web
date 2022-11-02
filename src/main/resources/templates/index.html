@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!-- This is for using Thymeleaf -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Employee Management System</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body style="max-width: 960px; margin: 16px auto; padding: 16px">
+	<h3>Number of Employees</h3>
+	<a th:href="@{/companyList}" class="btn btn-info">Company List</a>
+	<a th:href="@{/employeeList}" class="btn btn-warning">Employee List</a>
+	<div id="chart_div"></div>
+	<script type="text/javascript" th:inline="javascript">
+
+		// Load the Visualization API and the corechart package.
+		google.charts.load('current', {'packages':['corechart']});
+
+		// Set a callback to run when the Google Visualization API is loaded.
+		google.charts.setOnLoadCallback(drawChart);
+
+		// Callback that creates and populates a data table,
+		// instantiates the pie chart, passes in the data and
+		// draws it.
+		function drawChart() {
+			// Create the data table.
+			const data = new google.visualization.DataTable();
+			data.addColumn('string', 'Topping');
+			data.addColumn('number', 'Count');
+			data.addRows([[${chartData}]]);
+			// data.addRows([
+			// 	['Mushrooms', 3],
+			// 	['Onions', 1],
+			// 	['Olives', 1],
+			// 	['Zucchini', 1],
+			// 	['Pepperoni', 2]
+			// ]);
+			// Set chart options
+			const options = {
+				'title': 'Number of Employees By Company ',
+				'width': 400,
+				'height': 300
+			};
+			// Instantiate and draw our chart, passing in some options.
+			const chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+			chart.draw(data, options);
+		}
+	</script>
+</body>
+</html>

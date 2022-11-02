@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Employee Management System</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</head>
+<body style="max-width: 960px; margin: 16px auto; padding: 16px">
+	<h3>Company List</h3>
+	<a th:href="@{/showNewCompanyForm}" class="btn btn-success">Add new company</a>
+	<div align="center" style="margin-top: 20px">
+		<table class="table table-bordered table-hover table-striped centered">
+			<thead class="thead-dark">
+			<tr>
+				<th>Name</th>
+				<th>Address</th>
+				<th>Actions</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr th:if="${not #lists.isEmpty(listCompanies)}" th:each="company: ${listCompanies}">
+				<td th:text="${company.companyName}"></td>
+				<td th:text="${company.address}"></td>
+				<td>
+					<a th:href="@{/showFormForUpdateCompany/{id}(id=${company.id})}" class="btn btn-info">Update</a>
+					<a th:href="@{/deleteCompany/{id}(id=${company.id})}" class="btn btn-danger">Delete</a>
+				</td>
+			</tr>
+			<tr th:if="${#lists.isEmpty(listCompanies)}">
+				<td colspan="3" class="text-center">No Data</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	<a th:href="@{/}" class="blue-text">Home</a>
+</body>
+</html>

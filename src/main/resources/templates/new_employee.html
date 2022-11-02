@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Employee Management System</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</head>
+<body style="max-width: 960px; margin: 16px auto; padding: 16px">
+	<h3>Add New Employee</h3>
+	<form th:action="@{/saveEmployee}" th:object="${employee}" method="post">
+		<div class="row">
+			<div class="form-group">
+				<label for="first_name">First Name</label>
+				<input id="first_name" type="text" class="form-control validate" th:field="*{firstName}">
+				<small class="form-text text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name Error</small>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<label for="last_name">Last	Name</label>
+				<input id="last_name" type="text" class="form-control validate" th:field="*{lastName}">
+				<small class="form-text text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name Error</small>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<label for="email">Email</label>
+				<input id="email" type="email" class="form-control validate" th:field="*{email}">
+				<small class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</small>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group">
+				<label for="company">Company</label>
+				<select class="form-control" id="company" th:field="*{company}">
+					<option th:each="option : ${companyOptions}" th:value="${option.id}" th:text="${option.companyName}"></option>
+				</select>
+				<small class="text-danger" th:if="${#fields.hasErrors('company')}" th:errors="*{company}">Company Error</small>
+			</div>
+		</div>
+		<button type="submit" class="btn btn-success">Add Employee</button>
+	</form>
+	<br>
+	<a th:href="@{/employeeList}" class="blue-text">Back</a>
+</body>
+</html>
